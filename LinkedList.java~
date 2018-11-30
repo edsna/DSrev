@@ -1,0 +1,111 @@
+// Practicing to write all in one list, all methods have to be public.
+public class LinkedList {
+	Node root;	//pointer to the node
+	int size;	//stores the size of the list
+
+	//Constructor that initializes the root node & size to 0
+	public LinkedList() {
+		root = new Node();
+		size = 0;
+	}
+	
+	// Test code - main function
+	public static void main(String[] args) {
+		LinkedList ll = new LinkedList();
+		System.out.println(ll.getSize());
+		ll.add(8);
+		System.out.println(ll.getSize());
+		ll.add(17);
+		ll.add(5);
+		ll.add(10);
+		System.out.println(ll.find(17).getData());
+		ll.remove(5);
+		System.out.println(ll.getSize());
+		System.out.println(ll.find(5));
+		//System.out.println("Linked List is: " + ll);
+	}
+
+	//setters & getting integers values
+	public void setSize(int s) {
+		this.size = s;
+	}
+	
+	public int getSize() {
+		return this.size;
+	}
+
+	//adding values when repetition does not matter thus we don't check if the value is already in the list
+	public Node add(int data) {
+		Node newNode = new Node(data, root);	//create a new node
+		this.root = newNode;			//Sets the new node as the root node
+		this.size++;				//increases the size of the set by 1
+		return newNode;				//returns the new created node, Yes, go Edson, you got this!
+	}
+
+	//Finds elements inside thee set
+	public Node find(int data) {
+		Node thisNode = this.root;	//creates a new node
+		
+		while (thisNode != null) {	//while this node is not e,pty keep looking for a specific data
+			if (thisNode.getData() == data)		//If it's equal,
+				return thisNode;		//return this new node
+			thisNode = thisNode.getNextNode();	//Otherwise continue to the next node
+		}
+		return null;
+	}
+
+	//We give it a specific data, we search for that data and then we remove it's node
+	public boolean remove(int data) {	//every time we use find() we use a reference to the previous node as well
+		Node thisNode = this.root;	//the one we're looking for
+		Node prevNode = null;		//cus there's no previous node to the root
+		
+		while (thisNode != null) {	//while the set is not empty
+			if (thisNode.getData() == data) {	//if i find the data
+				if (prevNode != null)
+					prevNode.setNextNode(thisNode.getNextNode());// we delete/ jump this Node's pointer
+				else
+					this.root = null;
+				this.setSize(this.getSize()-1);
+				return true;
+			}
+			prevNode = thisNode;	//IF it's not advance both to the next node
+			thisNode = thisNode.getNextNode();
+		}
+		return false;
+	}
+	
+	// Node class
+	private class Node {		
+		private Node nextNode;	//link
+		private int data;	//element
+
+		// 0-arg constructor, 1-arg constructor, 2-arg constructor
+		private Node() { }	//creates a node
+		
+		private Node(int val) {		//we can pass in a value
+			data = val;
+		}
+		
+		private Node(int val, Node next) {	//we can pass in a value & next node
+			data = val;			//takes the value
+			nextNode = next;		//takes the next node
+		}
+
+		//Seters & geter functions
+		private void setData(int val) {
+			this.data = val;
+		}
+		
+		private int getData() {
+			return this.data;
+		}
+		
+		private void setNextNode(Node n) {
+			this.nextNode = n;
+		}
+		
+		private Node getNextNode() {
+			return this.nextNode;
+		}
+	}
+}

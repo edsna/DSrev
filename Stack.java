@@ -1,0 +1,78 @@
+package com.hubberspot.algos.stack;
+import java.util.EmptyStackException;
+
+public class Stack{
+ //Instance variables
+ private ListNode top; //
+ private int length; //stores the length of the Listode
+ 
+ public class ListNode{
+  private int data;
+  private ListNode next;
+
+  //constructor
+  public ListNode(int data){
+   this.data = data;
+  }
+ }
+
+ //constructor for a stack class
+ public Stack(){
+  top = null;
+  length = 0;
+ }
+
+ //Method to return the length of the stack
+ public int length(){
+  return length;
+ }
+
+ //Returns true if the stack is empty
+ public boolean isEmpty(){
+  return length == 0;
+ }
+
+ //Adding data on the stack
+ public void push(int data){
+  ListNode temp = new ListNode(data); //Creates a temp ListNode
+  temp.next = top;   //Assigns top to top.next
+  top = temp;    //Assigns top to value of temp
+  length++;    //increment length
+ }
+
+ //Gets the last value entered in the stack
+ public int pop(){
+  if(isEmpty()){ //Check if the array is not empty
+   throw new EmptyStackException(); 
+  }
+
+  int result = top.data; //Assign data in top
+  top = top.next;  //travel to next node
+  length--;  //reduce length
+  return result;  //return result
+ }
+
+ //Return the value collected by pop
+ public int peek(){
+  if(isEmpty()){ //Check if the array is not empty
+   throw new EmptyStackException(); 
+  }
+  return top.data; //return the last entered value
+ }
+ 
+ public static void main(String[]args){
+  Stack stack = new Stack(); //creates a new stack
+  //Adding values on the stack
+  stack.push(2);
+  stack.push(8);
+  stack.push(16);
+  stack.push(20);
+  stack.push(26);
+
+  System.out.println(stack.peek());
+  stack.pop();
+  System.out.println(stack.peek());
+  
+  
+ }
+}
